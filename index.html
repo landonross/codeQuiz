@@ -1,36 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>JavaScript Quiz</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Baloo+Tamma+2&family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Tamma+2&family=Luckiest+Guy&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
-    <header>Timed Javascript Quiz
-        <h1 class="time"></h1>
-        <div id="main"></div>
-    </header>
+    <header>Timed Javascript Quiz</header>
+    <div class="sidenav">
+        <button id="show">View High Scores</button>
+        <div id="totalScores"></div>
+        <p>____________
+            Instructions
+        </p>
+        <p1>
+            1. When you press start, you will have 30 seconds to answer all the questions.
+        </p1>
+        <p1>
+            2. Time will count down until all questions are answered.
+        </p1>
+        <p1>
+            3. Every wrong answer will subtract 5 seconds from your time.
+        </p1>
+        <p1>
+            4. Once the quiz is over, a prompt will ask you for your initials to store for the highscore.
+        </p1>
+        <p1>
+            5. Your total score is the amount of seconds left once the quiz is finished.
+        </p1>
+        <p1>
+            6. May the fastest player win!
+        </p1>
+    </div>
+    <h1 class="time"></h1>
     <div id="container">
         <div id="start">Start Quiz!</div>
         <div id="quiz" style="display: none">
             <div id="question"></div>
-            <!-- <div id="qImg"></div> -->
             <div id="choices">
                 <div class="choice" id="A" onclick="checkAnswer('A')"></div>
                 <div class="choice" id="B" onclick="checkAnswer('B')"></div>
                 <div class="choice" id="C" onclick="checkAnswer('C')"></div>
             </div>
-            <!-- <div id="timer">
-                <div id="counter"></div>
-                <div id="btimeGauge"></div>
-                <div id="timeGauge"></div>
-            </div> -->
-            <div id="progress"></div>
         </div>
-        <div id="scoreContainer" style="display: none"></div>
     </div>
     <script src="script.js"></script>
 </body>
+
 </html>

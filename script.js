@@ -1,53 +1,44 @@
 const start = document.getElementById("start");
 const quiz = document.getElementById("quiz");
 const question = document.getElementById("question");
-// const qImg = document.getElementById("qImg");
 const choiceA = document.getElementById("A");
 const choiceB = document.getElementById("B");
 const choiceC = document.getElementById("C");
-// const counter = document.getElementById("counter");
-// const timeGauge = document.getElementById("timeGauge");
 const progress = document.getElementById("progress");
-// const scoreDiv = document.getElementById("scoreContainer");
+const highScore = document.getElementById("highScore");
+const showEl = document.querySelector("#show");
 
 var timeEl = document.querySelector(".time");
-var mainEl = document.getElementById("main");
 
-var secondsLeft = 100;
+var secondsLeft = 30;
 
 // list of questions that will be on the quiz
 let questions = [
     {
-        question : "What does HTML stand for?",
-        choiceA : "Correct",
-        choiceB : "Wrong",
-        choiceC : "Wrong",
-        correct : "A"
+        question : "JavaScript is a ___ -side programming language.",
+        choiceA : "Client",
+        choiceB : "Server",
+        choiceC : "both",
+        correct : "C"
     },
     {
-        question : "What does CSS stand for?",
-        choiceA : "Wrong",
-        choiceB : "Correct",
-        choiceC : "Wrong",
+        question : "How do you find the minimum of x and y using JavaScript?",
+        choiceA : "min(x,y);",
+        choiceB : "Math.min(x,y)",
+        choiceC : "Math.min(xy)",
         correct : "B"
     },
     {
         question : "What does JS stand for?",
-        choiceA : "Wrong",
-        choiceB : "Wrong",
-        choiceC : "Correct",
-        correct : "C"
+        choiceA : "JavaScript",
+        choiceB : "JavaScribe",
+        choiceC : "JavaStarbucks",
+        correct : "A"
     }
 ];
 
 const lastQuestion = questions.length - 1;
 let runningQuestion = 0;
-let count = 0;
-const questionTime = 10; // 10s
-const gaugeWidth = 150; // 150px
-const gaugeUnit = gaugeWidth / questionTime;
-let TIMER;
-let score = 0;
 
 function setTime() {
   var timerInterval = setInterval(function() {
@@ -64,13 +55,6 @@ function setTime() {
 
 function sendMessage() {
   timeEl.textContent = " ";
-
-//   var imgEl = document.createElement("img");
-
-  mainEl.textContent = "GAME OVER"
-//   imgEl.setAttribute("src", "https://media.giphy.com/media/U6pavBhRsbNbPzrwWg/giphy.gif");
-//   mainEl.appendChild(imgEl);
-
 }
 
 // render a question
@@ -92,90 +76,65 @@ function startQuiz(){
     renderQuestion();
     quiz.style.display = "block";
     renderProgress();
-    // renderCounter();
-    // TIMER = setInterval(renderCounter,1000); // 1000ms = 1s
 }
 
 // render progress
 function renderProgress(){
     for(let qIndex = 0; qIndex <= lastQuestion; qIndex++){
-        progress.innerHTML += "<div class='prog' id="+ qIndex +"></div>";
     }
 }
-
-// // counter render
-
-// function renderCounter(){
-//     if(count <= questionTime){
-//         counter.innerHTML = count;
-//         timeGauge.style.width = count * gaugeUnit + "px";
-//         count++
-//     }else{
-//         count = 0;
-//         // change progress color to red
-//         answerIsWrong();
-//         if(runningQuestion < lastQuestion){
-//             runningQuestion++;
-//             renderQuestion();
-//         }else{
-//             // end the quiz and show the score
-//             clearInterval(TIMER);
-//             scoreRender();
-//         }
-//     }
-// }
-
-// checkAnwer
 
 function checkAnswer(answer){
     if( answer == questions[runningQuestion].correct){
         // answer is correct
-        score++;
-        // change progress color to green
         answerIsCorrect();
     }else{
         // answer is wrong
-        // change progress color to red
         answerIsWrong();
     }
-    count = 0;
     if(runningQuestion < lastQuestion){
         runningQuestion++;
         renderQuestion();
     }else{
         // end the quiz and show the score
-        clearInterval(TIMER);
         scoreRender();
     }
 }
 
 // answer is correct
 function answerIsCorrect(){
-    // document.getElementById(runningQuestion).style.backgroundColor = "#0f0";
+    document.getElementById(runningQuestion);
 }
 
 // answer is Wrong
 function answerIsWrong(){
-    // document.getElementById(runningQuestion).style.backgroundColor = "#f00";
+    document.getElementById(runningQuestion);
+    secondsLeft -= 5;
+}
+// Stores and presents the users  initials and highscore.
+function scoreRender(){
+    var highScore = secondsLeft;
+    var initials = prompt("What are your initials");
+    localStorage.setItem("highScore", initials + "-" + highScore);
+    var allScores = localStorage.getItem("highScore");
+    document.getElementById("totalScores").innerHTML = allScores;
+    secondsLeft = 1;
+
+//Below is the code I am working on to try to get multiple Highscores to show up.
+
+    // for (var i = 0; i < allScores.length; i++) {
+    //     var total = allScores[i];
+    
+    //     var li = document.createElement("li");
+    //     li.textContent = total;
+    //     li.setAttribute("data-index", i);
+    
+    //     li.appendChild(total);
+    //   }
 }
 
-// score render
-// function scoreRender(){
-//     scoreDiv.style.display = "block";
-    
-//     // calculate the amount of question percent answered by the user
-//     const scorePerCent = Math.round(100 * score/questions.length);
-    
-//     // choose the image based on the scorePerCent
-//     let img = (scorePerCent >= 80) ? "img/5.png" :
-//               (scorePerCent >= 60) ? "img/4.png" :
-//               (scorePerCent >= 40) ? "img/3.png" :
-//               (scorePerCent >= 20) ? "img/2.png" :
-//               "img/1.png";
-    
-//     scoreDiv.innerHTML = "<img src="+ img +">";
-//     scoreDiv.innerHTML += "<p>"+ scorePerCent +"%</p>";
-// }
-
-
-//https://github.com/CodeExplainedRepo/Multiple-Choice-Quiz-JavaScript/blob/master/quiz.js
+// Button you can click to view highscores without actually taking the quiz
+showEl.addEventListener("click", function() {
+    var allScores = localStorage.getItem("highScore");
+    document.getElementById("totalScores").innerHTML = allScores
+  });
