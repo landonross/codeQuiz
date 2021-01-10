@@ -98,6 +98,7 @@ function checkAnswer(answer){
     }else{
         // end the quiz and show the score
         scoreRender();
+        quiz.style.display = "none";
     }
 }
 

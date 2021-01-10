@@ -93,6 +93,12 @@ header{
   overflow: hidden;
 }
 
+#finished{
+  text-align: center;
+  font-family: 'Baloo Tamma 2', cursive;
+  font-size: 40px;
+}
+
 #totalScores {
   text-align: center;
   margin: 1%;
